@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ecommerce.users.exception.InvalidTokenException;
 import br.com.ecommerce.users.model.User;
 import br.com.ecommerce.users.model.UserResponseDTO;
 import br.com.ecommerce.users.model.UserUpdateDTO;
@@ -36,8 +37,8 @@ public class UserService {
 	
 	public User getUserByToken(String token) {
 		String username = tokenService.validateToken(token);
-		if (username == null) 
-			throw new IllegalStateException("Invalid token");			
+		if (username == null || username.isBlank()) 
+			throw new InvalidTokenException("");			
 		
 		return userRepository
 				.findByUsername(username)
