@@ -10,9 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -47,18 +49,18 @@ public class User {
 	
 	public void updateUser(User updatedData) {
 		if (updatedData != null) {
-			if (updatedData != null && !updatedData.getName().isBlank()) {
+			if (updatedData.getName() != null && !updatedData.getName().isBlank()) {
 				this.name = updatedData.getName();
 			}
-			if (updatedData != null && !updatedData.getEmail().isBlank()) {
+			if (updatedData.getEmail() != null && !updatedData.getEmail().isBlank()) {
 				this.email = updatedData.getEmail();
 			}
-			if (updatedData != null && !updatedData.getPhone_number().isBlank()) {
+			if (updatedData.getPhone_number() != null && !updatedData.getPhone_number().isBlank()) {
 				this.phone_number = updatedData.getPhone_number();
 			}
 
-			if (this.address != null)
-				this.address.updateEndereco(updatedData.getAddress());
+			if (updatedData.getAddress() != null)
+				this.address.updateAddress(updatedData.getAddress());
 		}
 	}
 }
