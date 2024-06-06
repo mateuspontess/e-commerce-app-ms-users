@@ -1,18 +1,21 @@
 package br.com.ecommerce.users.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class AddressUpdateDTO {
-    private final String street;
-    private final String neighborhood;
-    private final String postal_code;
-    private final String number;
-    private final String complement;
-    private final String city;
-    private final String state;
+    
+    private String street;
+    private String neighborhood;
+    private String postal_code;
+    private String number;
+    private String complement;
+    private String city;
+    private String state;
 }

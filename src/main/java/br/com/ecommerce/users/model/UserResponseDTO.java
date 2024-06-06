@@ -1,14 +1,16 @@
 package br.com.ecommerce.users.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserResponseDTO {
 	
-	private final Long id;
-	private final UserRole role;
+	private Long id;
+	private UserRole role;
 }

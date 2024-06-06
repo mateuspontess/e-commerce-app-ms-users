@@ -1,18 +1,21 @@
 package br.com.ecommerce.users.model;
 
 import br.com.ecommerce.users.annotation.PhoneNumberValidator;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserUpdateDTO {
 	
-    private final String name;
-    private final String email;
+    private String name;
+    private String email;
+
     @PhoneNumberValidator
-    private final String phone_number;
-    private final AddressUpdateDTO address;
+    private String phone_number;
+    private AddressUpdateDTO address;
 }
