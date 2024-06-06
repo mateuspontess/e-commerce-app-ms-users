@@ -24,7 +24,6 @@ public class UserService {
 	
 	public UserResponseDTO getUserByUsername(String token) {
 		User user = this.getUserByToken(token);
-
 		return new UserResponseDTO(user.getId(), user.getRole());
 	}
 	
@@ -37,9 +36,6 @@ public class UserService {
 	
 	public User getUserByToken(String token) {
 		String username = tokenService.validateToken(token);
-		if (username == null || username.isBlank()) 
-			throw new InvalidTokenException("");			
-		
 		return userRepository
 				.findByUsername(username)
 				.orElseThrow(EntityNotFoundException::new);

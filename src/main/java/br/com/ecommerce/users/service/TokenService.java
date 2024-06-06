@@ -7,6 +7,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
+import br.com.ecommerce.users.exception.InvalidTokenException;
+
 @Service
 public class TokenService {
 
@@ -24,7 +26,7 @@ public class TokenService {
 					.verify(token)
 					.getSubject();
 		} catch (JWTVerificationException exception){
-			return "";
+			throw new InvalidTokenException("");
 		}
 	}
 }
