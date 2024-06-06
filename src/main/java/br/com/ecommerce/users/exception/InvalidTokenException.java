@@ -4,6 +4,6 @@ public class InvalidTokenException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public InvalidTokenException(String message) {
-		super(message == "" || message == null ? "Invalid token" : message);
+		super(message.isBlank() ? "Invalid token" : message);
 	}
 }
