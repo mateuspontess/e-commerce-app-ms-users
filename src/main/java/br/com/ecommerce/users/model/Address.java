@@ -2,9 +2,11 @@ package br.com.ecommerce.users.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -20,26 +22,26 @@ public class Address {
 	private String state;
 	
 	
-	public void updateEndereco(Address updatedData) {
-	    if (updatedData != null && !updatedData.getStreet().isBlank()) {
+	public void updateAddress(Address updatedData) {
+	    if (updatedData.getStreet() != null && !updatedData.getStreet().isBlank()) {
 	        this.street = updatedData.getStreet();
 	    }
-	    if (updatedData != null && !updatedData.getNeighborhood().isBlank()) {
+	    if (updatedData.getNeighborhood() != null && !updatedData.getNeighborhood().isBlank()) {
 	        this.neighborhood = updatedData.getNeighborhood();
 	    }
-	    if (updatedData != null && !updatedData.getPostal_code().isBlank()) {
+	    if (updatedData.getPostal_code() != null && !updatedData.getPostal_code().isBlank()) {
 	        this.postal_code = updatedData.getPostal_code();
 	    }
-	    if (updatedData != null && !updatedData.getNumber().isBlank()) {
+	    if (updatedData.getNumber() != null && !updatedData.getNumber().isBlank()) {
 	        this.number = updatedData.getNumber();
 	    }
-	    if (updatedData != null && !updatedData.getComplement().isBlank()) {
+	    if (updatedData.getComplement() != null && !updatedData.getComplement().isBlank()) {
 	        this.complement = updatedData.getComplement();
 	    }
-	    if (updatedData != null && !updatedData.getCity().isBlank()) {
+	    if (updatedData.getCity() != null && !updatedData.getCity().isBlank()) {
 	        this.city = updatedData.getCity();
 	    }
-	    if (updatedData != null && !updatedData.getState().isBlank()) {
+	    if (updatedData.getState() != null && !updatedData.getState().isBlank()) {
 	        this.state = updatedData.getState();
 	    }
 	}
