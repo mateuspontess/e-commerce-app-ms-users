@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressUpdateDTO {
+public class AddressDTO {
     
     private String street;
     private String neighborhood;
@@ -18,4 +18,14 @@ public class AddressUpdateDTO {
     private String complement;
     private String city;
     private String state;
+
+    public AddressDTO(Address address) {
+        this.street = address.getStreet();
+        this.neighborhood = address.getNeighborhood();
+        this.postal_code = address.getPostal_code();
+        this.number = address.getNumber();
+        this.complement = address.getComplement();
+        this.city = address.getCity();
+        this.state = address.getState();
+    }
 }
