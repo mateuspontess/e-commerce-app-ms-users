@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ecommerce.users.exception.InvalidTokenException;
 import br.com.ecommerce.users.model.User;
-import br.com.ecommerce.users.model.UserResponseDTO;
+import br.com.ecommerce.users.model.UserIdAndRoleDTO;
 import br.com.ecommerce.users.model.UserUpdateDTO;
 import br.com.ecommerce.users.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,9 +22,9 @@ public class UserService {
 	private TokenService tokenService;
 	
 	
-	public UserResponseDTO getUserByUsername(String token) {
+	public UserIdAndRoleDTO getUserByUsername(String token) {
 		User user = this.getUserByToken(token);
-		return new UserResponseDTO(user.getId(), user.getRole());
+		return new UserIdAndRoleDTO(user.getId(), user.getRole());
 	}
 	
 	public void updateUser(UserUpdateDTO dto, User user) {
