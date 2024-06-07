@@ -11,7 +11,7 @@ import br.com.ecommerce.users.model.User;
 class UserTest {
 
 	@Test
-	@DisplayName("Test updating user with valid data")
+	@DisplayName("UpdateUser - user must be updated")
 	void updateUserTest01() {
 		// arrange
 		User target = User.builder()
@@ -36,7 +36,7 @@ class UserTest {
 	}
 	
 	@Test
-	@DisplayName("Test updating user with null values")
+	@DisplayName("UpdateUser - user shoud not be updated if entries are null")
 	void updateUserTest02() {
 		// arrange
 		User target = User.builder()
@@ -61,7 +61,7 @@ class UserTest {
 	}
 	
 	@Test
-	@DisplayName("Test updating user with empty strings")
+	@DisplayName("UpdateUser - user shoud not be updated if entries are null")
 	void updateUserTest03() {
 		// arrange
 		User target = User.builder()
