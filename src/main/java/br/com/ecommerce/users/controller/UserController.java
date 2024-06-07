@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ecommerce.users.model.User;
 import br.com.ecommerce.users.model.UserIdAndRoleDTO;
+import br.com.ecommerce.users.model.UserResponseDTO;
 import br.com.ecommerce.users.model.UserUpdateDTO;
 import br.com.ecommerce.users.service.UserService;
 import jakarta.transaction.Transactional;
@@ -31,13 +32,13 @@ public class UserController {
 	
 	@PutMapping
 	@Transactional
-	public ResponseEntity<Void> updateUser(
+	public ResponseEntity<UserResponseDTO> updateUser(
 			@RequestBody @Valid UserUpdateDTO dto, 
 			@RequestHeader("Authorization") String token
 			) {
 		
 		User user = service.getUserByToken(token);
 		service.updateUser(dto, user);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(new UserResponseDTO(user));
 	}
 }
