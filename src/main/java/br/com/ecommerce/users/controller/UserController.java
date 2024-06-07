@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ecommerce.users.model.User;
-import br.com.ecommerce.users.model.UserResponseDTO;
+import br.com.ecommerce.users.model.UserIdAndRoleDTO;
 import br.com.ecommerce.users.model.UserUpdateDTO;
 import br.com.ecommerce.users.service.UserService;
 import jakarta.transaction.Transactional;
@@ -25,7 +25,7 @@ public class UserController {
 	
 	
 	@GetMapping
-	public ResponseEntity<UserResponseDTO> getUserIdAndRoleByToken(@RequestHeader("Authorization") String token) {
+	public ResponseEntity<UserIdAndRoleDTO> getUserIdAndRoleByToken(@RequestHeader("Authorization") String token) {
 		return ResponseEntity.ok(service.getUserByUsername(token));
 	}
 	
