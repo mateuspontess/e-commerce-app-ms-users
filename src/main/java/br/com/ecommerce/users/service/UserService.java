@@ -4,7 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ecommerce.users.exception.InvalidTokenException;
 import br.com.ecommerce.users.model.User;
 import br.com.ecommerce.users.model.UserIdAndRoleDTO;
 import br.com.ecommerce.users.model.UserUpdateDTO;

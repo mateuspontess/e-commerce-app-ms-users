@@ -17,5 +17,5 @@ public class UserUpdateDTO {
 
     @PhoneNumberValidator
     private String phone_number;
-    private AddressUpdateDTO address;
+    private AddressDTO address;
 }
