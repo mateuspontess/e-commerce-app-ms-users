@@ -7,7 +7,7 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class PhoneNumberImplementation implements ConstraintValidator<PhoneNumberValidator, String>{
+public class PhoneNumberValidatorImpl implements ConstraintValidator<PhoneNumberValidator, String>{
 	
 	@Override
 	public void initialize(PhoneNumberValidator constraintAnnotation) {}
