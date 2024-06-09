@@ -3,16 +3,17 @@ package br.com.ecommerce.users.unit;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import br.com.ecommerce.users.annotation.PhoneNumberValidatorImpl;
 import jakarta.validation.ConstraintValidatorContext;
 
+@ExtendWith(MockitoExtension.class)
 class PhoneNumberValidatorImplTest {
 
     @Mock
@@ -20,11 +21,6 @@ class PhoneNumberValidatorImplTest {
     @InjectMocks
     private PhoneNumberValidatorImpl phoneNumberImplementation;
 
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     @DisplayName("Valid phone number should return true")
