@@ -10,15 +10,19 @@ import br.com.ecommerce.users.model.User;
 
 class UserTest {
 
-	@Test
-	@DisplayName("UpdateUser - user must be updated")
-	void updateUserTest01() {
-		// arrange
-		User target = User.builder()
+	private User getUser() {
+		return User.builder()
 			.name("default")
 			.email("default@email.com")
 			.phone_number("1111111111111")
 			.build();
+	}
+
+	@Test
+	@DisplayName("UpdateUser - user must be updated")
+	void updateUserTest01() {
+		// arrange
+		User target = this.getUser();
 
 		User updateData = User.builder()
 			.name("Name updated")
@@ -39,11 +43,7 @@ class UserTest {
 	@DisplayName("UpdateUser - user shoud not be updated if entries are null")
 	void updateUserTest02() {
 		// arrange
-		User target = User.builder()
-			.name("default")
-			.email("default@email.com")
-			.phone_number("1111111111111")
-			.build();
+		User target = this.getUser();
 
 		User updateData = User.builder()
 			.name(null)
@@ -64,11 +64,7 @@ class UserTest {
 	@DisplayName("UpdateUser - user shoud not be updated if entries are null")
 	void updateUserTest03() {
 		// arrange
-		User target = User.builder()
-			.name("default")
-			.email("default@email.com")
-			.phone_number("1111111111111")
-			.build();
+		User target = this.getUser();
 			
 		User updateData = User.builder()
 			.name("")
