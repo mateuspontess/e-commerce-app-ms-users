@@ -14,15 +14,7 @@ class AddressTest {
 	@DisplayName("Update address - address must be updated")
 	void updateAddress01() {
 		// arrange
-		Address target = Address.builder()
-			.street("street")
-			.neighborhood("neighborhood")
-			.postal_code("postal_code")
-			.number("number")
-			.complement("complement")
-			.city("city")
-			.state("state")
-			.build();
+		Address target = this.getAddress(); 
 
 		Address updateData = Address.builder()
 			.street("street")
@@ -51,15 +43,7 @@ class AddressTest {
 	@DisplayName("Update address - address should not be updated when entries are null")
 	void updateAddress02() {
 		// arrange
-		Address target = Address.builder()
-			.street("street")
-			.neighborhood("neighborhood")
-			.postal_code("postal_code")
-			.number("number")
-			.complement("complement")
-			.city("city")
-			.state("state")
-			.build();
+		Address target = this.getAddress(); 
 
 		Address updateData = Address.builder()
 			.street(null)
@@ -88,15 +72,7 @@ class AddressTest {
 	@DisplayName("Update address - address should not be updated when entries are blank")
 	void updateAddress03() {
 		// arrange
-		Address target = Address.builder()
-			.street("street")
-			.neighborhood("neighborhood")
-			.postal_code("postal_code")
-			.number("number")
-			.complement("complement")
-			.city("city")
-			.state("state")
-			.build();
+		Address target = this.getAddress();
 
 		Address updateData = Address.builder()
 			.street("")
@@ -119,5 +95,17 @@ class AddressTest {
 		assertNotEquals(updateData.getComplement(), target.getComplement());
 		assertNotEquals(updateData.getCity(), target.getCity());
 		assertNotEquals(updateData.getState(), target.getState());
+	}
+
+	private Address getAddress() {
+		return Address.builder()
+			.street("street")
+			.neighborhood("neighborhood")
+			.postal_code("postal_code")
+			.number("number")
+			.complement("complement")
+			.city("city")
+			.state("state")
+			.build();
 	}
 }
