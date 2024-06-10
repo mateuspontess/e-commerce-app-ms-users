@@ -1,5 +1,8 @@
 package br.com.ecommerce.users.model;
 
+import lombok.Getter;
+
+@Getter
 public class UserResponseDTO {
 
     private Long id;

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -66,8 +67,13 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<String> handleError400(HttpMessageNotReadableException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+    public ResponseEntity<ErrorMessage> handleError400(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest().body(new ErrorMessage(HttpStatus.OK.value(), "Malformed or unexpected json format"));
+    }
+	
+	@ExceptionHandler(MissingRequestHeaderException.class)
+    public ResponseEntity<ErrorMessage> handleError400MissingRequestHeaderException(MissingRequestHeaderException ex) {
+        return ResponseEntity.badRequest().body(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage().split("for")[0]));
     }
 
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
@@ -83,6 +89,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessage> handleError500(Exception ex) {
+		ex.printStackTrace();
         return ResponseEntity
         		.internalServerError()
         		.body(new ErrorMessage(
