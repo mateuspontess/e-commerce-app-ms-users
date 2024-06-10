@@ -29,7 +29,7 @@ import br.com.ecommerce.users.service.UserService;
 
 @WebMvcTest(UserController.class)
 @AutoConfigureJsonTesters
-public class UserControllerUnitTest {
+class UserControllerUnitTest {
 	
 	@MockBean
 	private UserService service;
