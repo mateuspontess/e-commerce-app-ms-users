@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ecommerce.users.model.User;
 import br.com.ecommerce.users.model.UserIdAndRoleDTO;
+import br.com.ecommerce.users.model.UserResponseDTO;
 import br.com.ecommerce.users.model.UserUpdateDTO;
 import br.com.ecommerce.users.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,11 +27,10 @@ public class UserService {
 		return new UserIdAndRoleDTO(user.getId(), user.getRole());
 	}
 	
-	public void updateUser(UserUpdateDTO dto, User user) {
+	public UserResponseDTO updateUser(UserUpdateDTO dto, User user) {
 		User update = mapper.map(dto, User.class);
 		user.updateUser(update);
-		
-		userRepository.flush();
+		return new UserResponseDTO(user);
 	}
 	
 	public User getUserByToken(String token) {

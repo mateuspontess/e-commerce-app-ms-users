@@ -23,20 +23,18 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
-	
-	
+
 	@GetMapping
 	public ResponseEntity<UserIdAndRoleDTO> getUserIdAndRoleByToken(@RequestHeader("Authorization") String token) {
 		return ResponseEntity.ok(service.getUserByUsername(token));
 	}
-	
+
 	@PutMapping
 	@Transactional
 	public ResponseEntity<UserResponseDTO> updateUser(
-			@RequestBody @Valid UserUpdateDTO dto, 
-			@RequestHeader("Authorization") String token
-			) {
-		
+			@RequestBody @Valid UserUpdateDTO dto,
+			@RequestHeader("Authorization") String token) {
+
 		User user = service.getUserByToken(token);
 		service.updateUser(dto, user);
 		return ResponseEntity.ok().body(new UserResponseDTO(user));

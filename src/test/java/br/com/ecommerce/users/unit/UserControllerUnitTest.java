@@ -47,7 +47,6 @@ class UserControllerUnitTest {
 		
 		User userMock = User.builder().name("user").email("user@email.com").phone_number("(11) 11111-1111)").address(new Address()).build();
 		when(service.getUserByToken(any())).thenReturn(userMock);
-		doNothing().when(service).updateUser(requestBody, userMock);
 
 		// act and assert
 		mvc.perform(
@@ -70,7 +69,6 @@ class UserControllerUnitTest {
 		
 		User userMock = User.builder().name("user").email("user@email.com").phone_number("(11) 11111-1111)").address(new Address()).build();
 		when(service.getUserByToken(any())).thenReturn(userMock);
-		doNothing().when(service).updateUser(requestBody, userMock);
 
 		// act and assert
 		mvc.perform(
