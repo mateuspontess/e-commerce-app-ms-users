@@ -39,17 +39,17 @@ class PhoneNumberValidatorImplTest {
     }
 
     @Test
-    @DisplayName("Null phone number should return false")
+    @DisplayName("Null phone number should return true")
     void testIsValid_withNullPhoneNumber() {
         String nullPhoneNumber = null;
-        assertFalse(phoneNumberImplementation.isValid(nullPhoneNumber, constraintValidatorContext));
+        assertTrue(phoneNumberImplementation.isValid(nullPhoneNumber, constraintValidatorContext));
     }
 
     @Test
-    @DisplayName("Empty phone number should return false")
+    @DisplayName("Empty phone number should return true")
     void testIsValid_withEmptyPhoneNumber() {
         String emptyPhoneNumber = "";
-        assertFalse(phoneNumberImplementation.isValid(emptyPhoneNumber, constraintValidatorContext));
+        assertTrue(phoneNumberImplementation.isValid(emptyPhoneNumber, constraintValidatorContext));
     }
 
     @Test

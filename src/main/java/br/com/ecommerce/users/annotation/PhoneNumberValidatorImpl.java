@@ -7,6 +7,9 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+/* Unlike the Accounts-MS service, null/blank entries are allowed, as in this service the update knows
+ * how to deal with empty entries and the flow cannot be interrupted by the absence of a valid phone number.
+ */
 public class PhoneNumberValidatorImpl implements ConstraintValidator<PhoneNumberValidator, String>{
 	
 	@Override
@@ -27,6 +30,6 @@ public class PhoneNumberValidatorImpl implements ConstraintValidator<PhoneNumber
 			
 			return pnUtil.isValidNumberForRegion(pn, "BR");
 		}	
-		return false;
+		return true;
 	}
 }

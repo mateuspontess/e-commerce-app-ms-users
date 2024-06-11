@@ -2,14 +2,15 @@ package br.com.ecommerce.users.unit;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -18,7 +19,6 @@ import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import br.com.ecommerce.users.controller.UserController;
 import br.com.ecommerce.users.model.Address;
@@ -41,6 +41,7 @@ class UserControllerUnitTest {
 	private JacksonTester<UserUpdateDTO> userUpdateDTOJson;
 
 	@Test
+	@DisplayName("Update user - should return status 200")
 	void updateUserTest01() throws IOException, Exception {
 		// arrange
 		UserUpdateDTO requestBody = new UserUpdateDTO("update name", "update@email.com", null, new AddressDTO());
@@ -50,7 +51,7 @@ class UserControllerUnitTest {
 
 		// act and assert
 		mvc.perform(
-			MockMvcRequestBuilders.put("/users")
+			put("/users")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userUpdateDTOJson.write(requestBody).getJson())
 				.header("Authorization", "Bearer token")
@@ -63,6 +64,7 @@ class UserControllerUnitTest {
 	}
 	
 	@Test
+	@DisplayName("Update user - should return status 400")
 	void updateUserTest02() throws IOException, Exception {
 		// arrange
 		UserUpdateDTO requestBody = new UserUpdateDTO("update name", "update@email.com", null, new AddressDTO());
@@ -72,9 +74,10 @@ class UserControllerUnitTest {
 
 		// act and assert
 		mvc.perform(
-			MockMvcRequestBuilders.put("/users")
+			put("/users")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userUpdateDTOJson.write(requestBody).getJson())
+				// missing Authorization header
 			)
 			.andExpect(status().isBadRequest());
 
