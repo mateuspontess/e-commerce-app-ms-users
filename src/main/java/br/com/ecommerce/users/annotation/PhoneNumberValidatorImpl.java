@@ -27,6 +27,6 @@ public class PhoneNumberValidatorImpl implements ConstraintValidator<PhoneNumber
 			
 			return pnUtil.isValidNumberForRegion(pn, "BR");
 		}	
-		return true;
+		return false;
 	}
 }
