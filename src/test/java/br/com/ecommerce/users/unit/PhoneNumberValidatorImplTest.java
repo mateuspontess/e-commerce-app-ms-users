@@ -27,6 +27,8 @@ class PhoneNumberValidatorImplTest {
     void testIsValid_withValidPhoneNumber() {
         String validPhoneNumber = "+5511999999999";
         assertTrue(phoneNumberImplementation.isValid(validPhoneNumber, constraintValidatorContext));
+        String validPhoneNumber2 = "11999999999";
+        assertTrue(phoneNumberImplementation.isValid(validPhoneNumber2, constraintValidatorContext));
     }
 
     @Test
@@ -37,17 +39,17 @@ class PhoneNumberValidatorImplTest {
     }
 
     @Test
-    @DisplayName("Null phone number should return true")
+    @DisplayName("Null phone number should return false")
     void testIsValid_withNullPhoneNumber() {
         String nullPhoneNumber = null;
-        assertTrue(phoneNumberImplementation.isValid(nullPhoneNumber, constraintValidatorContext));
+        assertFalse(phoneNumberImplementation.isValid(nullPhoneNumber, constraintValidatorContext));
     }
 
     @Test
-    @DisplayName("Empty phone number should return true")
+    @DisplayName("Empty phone number should return false")
     void testIsValid_withEmptyPhoneNumber() {
         String emptyPhoneNumber = "";
-        assertTrue(phoneNumberImplementation.isValid(emptyPhoneNumber, constraintValidatorContext));
+        assertFalse(phoneNumberImplementation.isValid(emptyPhoneNumber, constraintValidatorContext));
     }
 
     @Test
