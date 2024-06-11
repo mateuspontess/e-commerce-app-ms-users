@@ -31,15 +31,16 @@ import br.com.ecommerce.users.service.UserService;
 @AutoConfigureJsonTesters
 class UserControllerUnitTest {
 	
-	@MockBean
-	private UserService service;
-	
 	@Autowired
 	private MockMvc mvc;
 
 	@Autowired
 	private JacksonTester<UserUpdateDTO> userUpdateDTOJson;
 
+	@MockBean
+	private UserService service;
+
+	
 	@Test
 	@DisplayName("Update user - should return status 200")
 	void updateUserTest01() throws IOException, Exception {
