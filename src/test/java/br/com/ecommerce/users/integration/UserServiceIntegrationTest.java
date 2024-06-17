@@ -59,7 +59,7 @@ class UserServiceIntegrationTest {
     }
 
     @Test
-    @DisplayName("Should find the user and return data")
+    @DisplayName("Integration - getUserByUsername - Should find the user and return data")
     void getUserByUsernameTest01() {
         // arrange
         String token = "bearer token";
@@ -74,7 +74,7 @@ class UserServiceIntegrationTest {
         assertEquals(UserRole.ADMIN, result.getRole());
     }
     @Test
-    @DisplayName("Should not find the user")
+    @DisplayName("Integration - getUserByUsername - Should not find the user")
     void getUserByUsernameTest02() {
         // arrange
         String token = "bearer token";
@@ -85,7 +85,7 @@ class UserServiceIntegrationTest {
     }
 
     @Test
-    @DisplayName("Must update the user")
+    @DisplayName("Integration - updateUser - Must update the user")
     void updateUserTest01() {
         // arrange
         UserUpdateDTO inputUpdateData = new UserUpdateDTO(

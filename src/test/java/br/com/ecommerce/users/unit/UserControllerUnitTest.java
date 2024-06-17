@@ -42,7 +42,7 @@ class UserControllerUnitTest {
 
 	
 	@Test
-	@DisplayName("Update user - should return status 200")
+	@DisplayName("Unit - updateUser - should return status 200")
 	void updateUserTest01() throws IOException, Exception {
 		// arrange
 		UserUpdateDTO requestBody = new UserUpdateDTO("update name", "update@email.com", null, new AddressDTO());
@@ -65,7 +65,7 @@ class UserControllerUnitTest {
 	}
 	
 	@Test
-	@DisplayName("Update user - should return status 400")
+	@DisplayName("Unit - updateUser - should return status 400")
 	void updateUserTest02() throws IOException, Exception {
 		// arrange
 		UserUpdateDTO requestBody = new UserUpdateDTO("update name", "update@email.com", null, new AddressDTO());

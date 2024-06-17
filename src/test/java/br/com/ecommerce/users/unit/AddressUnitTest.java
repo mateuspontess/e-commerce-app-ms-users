@@ -11,7 +11,7 @@ import br.com.ecommerce.users.model.Address;
 class AddressUnitTest {
 
 	@Test
-	@DisplayName("Update address - address must be updated")
+	@DisplayName("Unit - updateAddress - address must be updated")
 	void updateAddress01() {
 		// arrange
 		Address target = this.getAddress(); 
@@ -40,7 +40,7 @@ class AddressUnitTest {
 	}
 
 	@Test
-	@DisplayName("Update address - address should not be updated when entries are null")
+	@DisplayName("Unit - updateAddress - address should not be updated when entries are null")
 	void updateAddress02() {
 		// arrange
 		Address target = this.getAddress(); 
@@ -69,7 +69,7 @@ class AddressUnitTest {
 	}
 
 	@Test
-	@DisplayName("Update address - address should not be updated when entries are blank")
+	@DisplayName("Unit - updateAddress - address should not be updated when entries are blank")
 	void updateAddress03() {
 		// arrange
 		Address target = this.getAddress();

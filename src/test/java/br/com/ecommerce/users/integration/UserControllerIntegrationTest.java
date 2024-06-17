@@ -78,7 +78,7 @@ class UserControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Must return status 200 and user data")
+    @DisplayName("Integration - getUserIdAndRoleByToken - Must return status 200 and user data")
     void getUserIdAndRoleByTokenTest01() throws Exception {
         // arrange
         String token = "bearer token";
@@ -97,7 +97,7 @@ class UserControllerIntegrationTest {
     }
     
     @Test
-    @DisplayName("Must return status 200 and user data updated")
+    @DisplayName("Integration - updateUser - Must return status 200 and user data updated")
     void updateUserTest01() throws Exception {
         // arrange
         UserUpdateDTO requestBody = new UserUpdateDTO(

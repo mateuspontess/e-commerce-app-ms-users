@@ -19,8 +19,8 @@ class UserUnitTest {
 	}
 
 	@Test
-	@DisplayName("UpdateUser - user must be updated")
-	void updateUserTest01() {
+	@DisplayName("Unit - update - User must be updated")
+	void updateTest01() {
 		// arrange
 		User target = this.getUser();
 
@@ -31,7 +31,7 @@ class UserUnitTest {
 			.build();
 
 		// act
-		target.updateUser(updateData);
+		target.update(updateData);
 
 		// assert
 		assertEquals(updateData.getName(), target.getName());
@@ -40,8 +40,8 @@ class UserUnitTest {
 	}
 	
 	@Test
-	@DisplayName("UpdateUser - user shoud not be updated if entries are null")
-	void updateUserTest02() {
+	@DisplayName("Unit - update - User shoud not be updated when entries are null")
+	void updateTest02() {
 		// arrange
 		User target = this.getUser();
 
@@ -52,7 +52,7 @@ class UserUnitTest {
 			.build();
 
 		// act
-		target.updateUser(updateData);
+		target.update(updateData);
 
 		// assert
 		assertNotEquals(updateData.getName(), target.getName());
@@ -61,8 +61,8 @@ class UserUnitTest {
 	}
 	
 	@Test
-	@DisplayName("UpdateUser - user shoud not be updated if entries are null")
-	void updateUserTest03() {
+	@DisplayName("Unit - update - User shoud not be updated when entries are null")
+	void updateTest03() {
 		// arrange
 		User target = this.getUser();
 			
@@ -73,7 +73,7 @@ class UserUnitTest {
 			.build();
 		
 		// act
-		target.updateUser(updateData);
+		target.update(updateData);
 		
 		// assert
 		assertNotEquals(updateData.getName(), target.getName());
