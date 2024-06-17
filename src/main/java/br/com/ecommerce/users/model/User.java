@@ -47,7 +47,7 @@ public class User {
 	private UserRole role;
 
 	
-	public void updateUser(User updatedData) {
+	public void update(User updatedData) {
 		if (updatedData != null) {
 			if (updatedData.getName() != null && !updatedData.getName().isBlank()) {
 				this.name = updatedData.getName();
