@@ -29,7 +29,7 @@ public class UserService {
 	
 	public UserResponseDTO updateUser(UserUpdateDTO dto, User user) {
 		User update = mapper.map(dto, User.class);
-		user.updateUser(update);
+		user.update(update);
 		return new UserResponseDTO(user);
 	}
 	
