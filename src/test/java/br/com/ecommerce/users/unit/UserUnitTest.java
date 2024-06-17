@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.ecommerce.users.model.User;
 
-class UserTest {
+class UserUnitTest {
 
 	private User getUser() {
 		return User.builder()

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.ecommerce.users.model.Address;
 
-class AddressTest {
+class AddressUnitTest {
 
 	@Test
 	@DisplayName("Update address - address must be updated")
