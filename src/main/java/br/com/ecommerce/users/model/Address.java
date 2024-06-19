@@ -1,5 +1,7 @@
 package br.com.ecommerce.users.model;
 
+import org.springframework.beans.BeanUtils;
+
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +22,7 @@ public class Address {
 	private String complement;
 	private String city;
 	private String state;
-	
+
 	
 	public void updateAddress(Address updatedData) {
 	    if (updatedData.getStreet() != null && !updatedData.getStreet().isBlank()) {

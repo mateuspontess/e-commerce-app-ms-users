@@ -1,5 +1,6 @@
 package br.com.ecommerce.users.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +29,10 @@ public class UserService {
 	public UserResponseDTO updateUser(UserUpdateDTO dto, String token) {
 		User user = this.getUserByToken(token);
 
-		Address addressUpdate = new Address(
-			dto.getAddress().getStreet(),
-			dto.getAddress().getNeighborhood(),
-			dto.getAddress().getPostal_code(),
-			dto.getAddress().getNumber(),
-			dto.getAddress().getComplement(),
-			dto.getAddress().getCity(),
-			dto.getAddress().getState()
-		);
-		
+		Address addressUpdate = new Address();
+		BeanUtils.copyProperties(dto.getAddress(), addressUpdate);
 		user.update(dto.getName(), dto.getEmail(), dto.getPhone_number(), addressUpdate);
+
 		return new UserResponseDTO(user);
 	}
 	
