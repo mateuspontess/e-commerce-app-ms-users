@@ -31,8 +31,8 @@ class UserUnitTest {
 			.build();
 
 		// act
-		target.update(updateData);
-
+		target.update(updateData.getName(), updateData.getEmail(), updateData.getPhone_number(), null);
+		
 		// assert
 		assertEquals(updateData.getName(), target.getName());
 		assertEquals(updateData.getEmail(), target.getEmail());
@@ -52,7 +52,7 @@ class UserUnitTest {
 			.build();
 
 		// act
-		target.update(updateData);
+		target.update(updateData.getName(), updateData.getEmail(), updateData.getPhone_number(), null);
 
 		// assert
 		assertNotEquals(updateData.getName(), target.getName());
@@ -73,7 +73,7 @@ class UserUnitTest {
 			.build();
 		
 		// act
-		target.update(updateData);
+		target.update(updateData.getName(), updateData.getEmail(), updateData.getPhone_number(), null);
 		
 		// assert
 		assertNotEquals(updateData.getName(), target.getName());

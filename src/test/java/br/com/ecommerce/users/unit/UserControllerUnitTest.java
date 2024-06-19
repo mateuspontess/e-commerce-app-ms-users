@@ -1,11 +1,11 @@
 package br.com.ecommerce.users.unit;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
@@ -21,9 +21,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import br.com.ecommerce.users.controller.UserController;
-import br.com.ecommerce.users.model.Address;
 import br.com.ecommerce.users.model.AddressDTO;
-import br.com.ecommerce.users.model.User;
+import br.com.ecommerce.users.model.UserResponseDTO;
 import br.com.ecommerce.users.model.UserUpdateDTO;
 import br.com.ecommerce.users.service.UserService;
 
@@ -42,13 +41,28 @@ class UserControllerUnitTest {
 
 	
 	@Test
-	@DisplayName("Unit - updateUser - should return status 200")
+	@DisplayName("Unit - updateUser - Should return status 200 and user data")
 	void updateUserTest01() throws IOException, Exception {
 		// arrange
-		UserUpdateDTO requestBody = new UserUpdateDTO("update name", "update@email.com", null, new AddressDTO());
+		UserUpdateDTO requestBody = new UserUpdateDTO(
+			"update name",
+			"update@email.com",
+			null, // can be null, but cannot have a value that is invalid
+			new AddressDTO());
 		
-		User userMock = User.builder().name("user").email("user@email.com").phone_number("(11) 11111-1111)").address(new Address()).build();
-		when(service.getUserByToken(any())).thenReturn(userMock);
+		UserResponseDTO serviceReturnMock = new UserResponseDTO(
+			1L,
+			requestBody.getName(),
+			requestBody.getEmail(),
+			"(11) 11111-1111",
+			new AddressDTO()
+		);
+		when(service.updateUser(any(), any())).thenReturn(serviceReturnMock);
+
+		var EXPECTED_ID = serviceReturnMock.getId();
+		var EXPECTED_NAME = requestBody.getName();
+		var EXPECTED_EMAIL = requestBody.getEmail();
+		var EXPECTED_PHONE_NUMBER = serviceReturnMock.getPhone_number();
 
 		// act and assert
 		mvc.perform(
@@ -56,22 +70,54 @@ class UserControllerUnitTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userUpdateDTOJson.write(requestBody).getJson())
 				.header("Authorization", "Bearer token")
-			)
-			.andExpect(status().isOk())
-			.andReturn().getResponse();
+		)
+		// assert
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.id").value(EXPECTED_ID))
+		.andExpect(jsonPath("$.name").value(EXPECTED_NAME))
+		.andExpect(jsonPath("$.email").value(EXPECTED_EMAIL))
+		.andExpect(jsonPath("$.phone_number").value(EXPECTED_PHONE_NUMBER))
+		.andExpect(jsonPath("$.address").exists());
 
-		verify(service).getUserByToken(anyString());
 		verify(service).updateUser(any(), any());
 	}
-	
 	@Test
-	@DisplayName("Unit - updateUser - should return status 400")
+	@DisplayName("Unit - updateUser - Should return status 400 when the phone number is invalid")
 	void updateUserTest02() throws IOException, Exception {
+		// arrange
+		UserUpdateDTO requestBody = new UserUpdateDTO(
+			null,
+			null,
+			"123",
+			null
+		);
+
+		// act
+		mvc.perform(
+			put("/users")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(userUpdateDTOJson.write(requestBody).getJson())
+				.header("Authorization", "Bearer token")
+		)
+		// assert
+		.andExpect(status().isBadRequest());
+
+		verifyNoInteractions(service);
+	}
+	@Test
+	@DisplayName("Unit - updateUser - Must return status 400 when the request does not have the Authorization header")
+	void updateUserTest03() throws IOException, Exception {
 		// arrange
 		UserUpdateDTO requestBody = new UserUpdateDTO("update name", "update@email.com", null, new AddressDTO());
 		
-		User userMock = User.builder().name("user").email("user@email.com").phone_number("(11) 11111-1111)").address(new Address()).build();
-		when(service.getUserByToken(any())).thenReturn(userMock);
+		UserResponseDTO serviceReturnMock = new UserResponseDTO(
+			1L,
+			"User-san",
+			"user.san@email.com",
+			"(11) 11111-1111",
+			new AddressDTO()
+		);
+		when(service.updateUser(any(), any())).thenReturn(serviceReturnMock);
 
 		// act and assert
 		mvc.perform(
@@ -79,8 +125,8 @@ class UserControllerUnitTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userUpdateDTOJson.write(requestBody).getJson())
 				// missing Authorization header
-			)
-			.andExpect(status().isBadRequest());
+		)
+		.andExpect(status().isBadRequest());
 
 		verifyNoInteractions(service);
 	}

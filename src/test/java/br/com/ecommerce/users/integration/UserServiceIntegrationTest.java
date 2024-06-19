@@ -3,6 +3,7 @@ package br.com.ecommerce.users.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,9 @@ import br.com.ecommerce.users.repository.UserRepository;
 import br.com.ecommerce.users.service.TokenService;
 import br.com.ecommerce.users.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
+@Transactional
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.AUTO_CONFIGURED)
 @ActiveProfiles("test")
@@ -63,7 +66,7 @@ class UserServiceIntegrationTest {
     void getUserByUsernameTest01() {
         // arrange
         String token = "bearer token";
-        when(tokenService.validateToken(token)).thenReturn(VALID_USERNAME);
+        when(tokenService.validateToken(anyString())).thenReturn(VALID_USERNAME);
 
         // act
         var result = this.service.getUserByUsername(token);
@@ -78,7 +81,7 @@ class UserServiceIntegrationTest {
     void getUserByUsernameTest02() {
         // arrange
         String token = "bearer token";
-        when(tokenService.validateToken(token)).thenReturn("INVALID USERNAME");
+        when(tokenService.validateToken(anyString())).thenReturn("INVALID USERNAME");
 
         // act and assert
         assertThrows(EntityNotFoundException.class, () -> this.service.getUserByUsername(token));
@@ -94,8 +97,10 @@ class UserServiceIntegrationTest {
             "(22) 22222-2222", 
             new AddressDTO());
 
+        when(tokenService.validateToken(anyString())).thenReturn(VALID_USERNAME);
+
         // act
-        var result = service.updateUser(inputUpdateData, this.user);
+        var result = service.updateUser(inputUpdateData, "bearer token");
 
         // assert
         assertEquals(this.user.getName(), result.getName());
