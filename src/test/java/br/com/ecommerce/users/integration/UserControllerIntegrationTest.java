@@ -32,7 +32,9 @@ import br.com.ecommerce.users.model.UserRole;
 import br.com.ecommerce.users.model.UserUpdateDTO;
 import br.com.ecommerce.users.repository.UserRepository;
 import br.com.ecommerce.users.service.TokenService;
+import jakarta.transaction.Transactional;
 
+@Transactional
 @SpringBootTest
 @AutoConfigureWebMvc
 @AutoConfigureMockMvc
@@ -85,15 +87,14 @@ class UserControllerIntegrationTest {
         when(tokenService.validateToken(anyString())).thenReturn(VALID_USERNAME);
 
         // act
-        mvc.perform(
-            get("/users")
+        mvc.perform(get("/users")
             .contentType(MediaType.APPLICATION_JSON)
             .header("Authorization", token)
-            )
-            .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.role").value(UserRole.ADMIN.toString()))
-            .andExpect(status().isOk()
-        );
+        )
+        // assert
+        .andExpect(jsonPath("$.id").value(1L))
+        .andExpect(jsonPath("$.role").value(UserRole.ADMIN.toString()))
+        .andExpect(status().isOk());
     }
     
     @Test
@@ -111,15 +112,15 @@ class UserControllerIntegrationTest {
         // act
         mvc.perform(
             put("/users")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(userUpdateDTOJson.write(requestBody).getJson())
-            .header("Authorization", token)
-            )
-            .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.name").value(requestBody.getName()))
-            .andExpect(jsonPath("$.email").value(requestBody.getEmail()))
-            .andExpect(jsonPath("$.phone_number").value(requestBody.getPhone_number()))
-            .andExpect(status().isOk()
-        );
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userUpdateDTOJson.write(requestBody).getJson())
+                .header("Authorization", token)
+        )
+        // assert
+        .andExpect(jsonPath("$.id").value(1L))
+        .andExpect(jsonPath("$.name").value(requestBody.getName()))
+        .andExpect(jsonPath("$.email").value(requestBody.getEmail()))
+        .andExpect(jsonPath("$.phone_number").value(requestBody.getPhone_number()))
+        .andExpect(status().isOk());
     }
 }
