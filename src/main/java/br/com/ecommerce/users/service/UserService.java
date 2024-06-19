@@ -1,9 +1,9 @@
 package br.com.ecommerce.users.service;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ecommerce.users.model.Address;
 import br.com.ecommerce.users.model.User;
 import br.com.ecommerce.users.model.UserIdAndRoleDTO;
 import br.com.ecommerce.users.model.UserResponseDTO;
@@ -17,8 +17,6 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private ModelMapper mapper;
-	@Autowired
 	private TokenService tokenService;
 	
 	
@@ -27,16 +25,27 @@ public class UserService {
 		return new UserIdAndRoleDTO(user.getId(), user.getRole());
 	}
 	
-	public UserResponseDTO updateUser(UserUpdateDTO dto, User user) {
-		User update = mapper.map(dto, User.class);
-		user.update(update);
+	public UserResponseDTO updateUser(UserUpdateDTO dto, String token) {
+		User user = this.getUserByToken(token);
+
+		Address addressUpdate = new Address(
+			dto.getAddress().getStreet(),
+			dto.getAddress().getNeighborhood(),
+			dto.getAddress().getPostal_code(),
+			dto.getAddress().getNumber(),
+			dto.getAddress().getComplement(),
+			dto.getAddress().getCity(),
+			dto.getAddress().getState()
+		);
+		
+		user.update(dto.getName(), dto.getEmail(), dto.getPhone_number(), addressUpdate);
 		return new UserResponseDTO(user);
 	}
 	
-	public User getUserByToken(String token) {
+	private User getUserByToken(String token) {
 		String username = tokenService.validateToken(token);
 		return userRepository
-				.findByUsername(username)
-				.orElseThrow(EntityNotFoundException::new);
+			.findByUsername(username)
+			.orElseThrow(EntityNotFoundException::new);
 	}
 }

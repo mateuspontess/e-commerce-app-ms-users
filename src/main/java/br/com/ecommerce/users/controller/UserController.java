@@ -32,11 +32,11 @@ public class UserController {
 	@PutMapping
 	@Transactional
 	public ResponseEntity<UserResponseDTO> updateUser(
-			@RequestBody @Valid UserUpdateDTO dto,
-			@RequestHeader("Authorization") String token) {
+		@RequestBody @Valid UserUpdateDTO dto,
+		@RequestHeader("Authorization") String token
+		) {
 
-		User user = service.getUserByToken(token);
-		service.updateUser(dto, user);
-		return ResponseEntity.ok().body(new UserResponseDTO(user));
+		UserResponseDTO userUpdated = service.updateUser(dto, token);
+		return ResponseEntity.ok().body(userUpdated);
 	}
 }
