@@ -21,10 +21,10 @@ public class TokenService {
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(secret);
 			return JWT.require(algorithm)
-					.withIssuer("ecommerce")
-					.build()
-					.verify(token)
-					.getSubject();
+				.withIssuer("ecommerce")
+				.build()
+				.verify(token)
+				.getSubject();
 		} catch (JWTVerificationException exception){
 			throw new InvalidTokenException("");
 		}

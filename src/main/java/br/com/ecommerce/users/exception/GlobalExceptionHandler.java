@@ -30,21 +30,23 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<ErrorMessage> handlerEntityNotFoundException(EntityNotFoundException ex) {
 		return ResponseEntity
-				.status(HttpStatus.UNAUTHORIZED)
-				.body(new ErrorMessage(
-						HttpStatus.UNAUTHORIZED.value(), 
-						ENTITY_NOT_FOUND_EXCEPTION
-						)
-					);
+			.status(HttpStatus.UNAUTHORIZED)
+			.body(new ErrorMessage(
+				HttpStatus.UNAUTHORIZED.value(), 
+				ENTITY_NOT_FOUND_EXCEPTION
+				)
+			);
 	}
 
 	@ExceptionHandler(InvalidTokenException.class)
 	public ResponseEntity<ErrorMessage> handlerError401(InvalidTokenException ex) {
 		return ResponseEntity
-				.status(HttpStatus.UNAUTHORIZED)
-				.body(new ErrorMessage(
-						HttpStatus.UNAUTHORIZED.value(), 
-						ex.getMessage()));
+			.status(HttpStatus.UNAUTHORIZED)
+			.body(new ErrorMessage(
+				HttpStatus.UNAUTHORIZED.value(), 
+				ex.getMessage()
+				)
+			);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -52,13 +54,13 @@ public class GlobalExceptionHandler {
     	var fields = ex.getFieldErrors().stream().collect(Collectors.toMap(f -> f.getField().toString(), f -> f.getDefaultMessage()));
     	
     	return ResponseEntity
-    			.badRequest()
-    			.body(new ErrorMessageWithFields(
-					HttpStatus.BAD_REQUEST.value(),
-					METHOD_ARGUMENT_NOT_VALID_MESSAGE,
-					fields
-					)
-				);
+			.badRequest()
+			.body(new ErrorMessageWithFields(
+				HttpStatus.BAD_REQUEST.value(),
+				METHOD_ARGUMENT_NOT_VALID_MESSAGE,
+				fields
+				)
+			);
     }
 
 	@ExceptionHandler(IllegalArgumentException.class)
@@ -79,9 +81,10 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<ErrorMessage> handlerErro415(HttpMediaTypeNotSupportedException ex) {
         String unsupported = ex.getContentType() != null ? ex.getContentType().getType() + "/" + ex.getContentType().getSubtype() : "unknown";
+
         String supported = ex.getSupportedMediaTypes().stream()
-                              .map(mediaType -> mediaType.getType() + "/" + mediaType.getSubtype())
-                              .collect(Collectors.joining(", "));
+			.map(mediaType -> mediaType.getType() + "/" + mediaType.getSubtype())
+			.collect(Collectors.joining(", "));
         String message = String.format("Unsupported media type '%s'. Supported media types are: %s", unsupported, supported);
 
         return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value()).body(new ErrorMessage(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), message));
@@ -91,12 +94,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessage> handleError500(Exception ex) {
 		ex.printStackTrace();
         return ResponseEntity
-        		.internalServerError()
-        		.body(new ErrorMessage(
-        				HttpStatus.INTERNAL_SERVER_ERROR.value(),
-        				INTERNAL_SERVER_ERROR_MESSAGE
-						)
-					);
+			.internalServerError()
+			.body(new ErrorMessage(
+				HttpStatus.INTERNAL_SERVER_ERROR.value(),
+				INTERNAL_SERVER_ERROR_MESSAGE
+				)
+			);
     }
 	
 	private record ErrorMessage(int status, Object error) {}
