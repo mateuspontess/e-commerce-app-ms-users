@@ -46,21 +46,26 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
 
-	
-	public void update(User updatedData) {
-		if (updatedData != null) {
-			if (updatedData.getName() != null && !updatedData.getName().isBlank()) {
-				this.name = updatedData.getName();
-			}
-			if (updatedData.getEmail() != null && !updatedData.getEmail().isBlank()) {
-				this.email = updatedData.getEmail();
-			}
-			if (updatedData.getPhone_number() != null && !updatedData.getPhone_number().isBlank()) {
-				this.phone_number = updatedData.getPhone_number();
-			}
 
-			if (updatedData.getAddress() != null)
-				this.address.updateAddress(updatedData.getAddress());
+	public void update(String name, String email, String phoneNumber, Address address) {
+		if (name != null && !name.isBlank()) {
+			System.out.println("PASSOU PELOS IFS");
+			this.name = name;
+		}
+		if (email != null && !email.isBlank()) {
+			this.email = email;
+		}
+		if (phoneNumber != null && !phoneNumber.isBlank()) {
+			this.phone_number = phoneNumber;
+		}
+
+		if (address != null) {
+			if (this.address == null) {
+				Address update = new Address();
+				update.updateAddress(update);
+				this.address = update;
+			}
+			this.address.updateAddress(address);
 		}
 	}
 }
