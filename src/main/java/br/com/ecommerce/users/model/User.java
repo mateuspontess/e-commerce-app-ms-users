@@ -49,7 +49,6 @@ public class User {
 
 	public void update(String name, String email, String phoneNumber, Address address) {
 		if (name != null && !name.isBlank()) {
-			System.out.println("PASSOU PELOS IFS");
 			this.name = name;
 		}
 		if (email != null && !email.isBlank()) {

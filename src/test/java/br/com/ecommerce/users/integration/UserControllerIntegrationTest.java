@@ -87,14 +87,15 @@ class UserControllerIntegrationTest {
         when(tokenService.validateToken(anyString())).thenReturn(VALID_USERNAME);
 
         // act
-        mvc.perform(get("/users")
-            .contentType(MediaType.APPLICATION_JSON)
-            .header("Authorization", token)
+        mvc.perform(
+            get("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", token)
         )
         // assert
+        .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(1L))
-        .andExpect(jsonPath("$.role").value(UserRole.ADMIN.toString()))
-        .andExpect(status().isOk());
+        .andExpect(jsonPath("$.role").value(UserRole.ADMIN.toString()));
     }
     
     @Test
@@ -117,10 +118,10 @@ class UserControllerIntegrationTest {
                 .header("Authorization", token)
         )
         // assert
+        .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(1L))
         .andExpect(jsonPath("$.name").value(requestBody.getName()))
         .andExpect(jsonPath("$.email").value(requestBody.getEmail()))
-        .andExpect(jsonPath("$.phone_number").value(requestBody.getPhone_number()))
-        .andExpect(status().isOk());
+        .andExpect(jsonPath("$.phone_number").value(requestBody.getPhone_number()));
     }
 }
